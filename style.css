@@ -1,0 +1,11 @@
+#answerContainer {
+    display: flex;
+    flex-direction: column;
+}
+#result {
+    text-align:center;
+    color: gray;
+}
+#question {
+    text-align: center;
+}
