@@ -42,11 +42,13 @@ let button = document.getElementById("selector")
 let text = document.getElementById("question")
 let finish = document.getElementById("result")
 let questionIndex = 0
-
+let secondsLeft = 5
+let time = document.getElementById("main")
 let answerButtons = []
 
 
 let startGame = function(){
+    clock()
     button.remove()
     answerButtons.push(document.createElement("button"))
     answerButtons.push(document.createElement("button"))
@@ -88,3 +90,33 @@ function clicked(ev) {
     questionIndex++
     updateUI()
 }
+
+function clock(){
+  var  timerInterval = setInterval(function(){
+    secondsLeft--;
+  time.textContent = secondsLeft + " seconds left"
+  time.setAttribute("class", "red" )
+   
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval)
+      answerButtons[0].remove()
+      answerButtons[1].remove()
+      answerButtons[2].remove()
+      answerButtons[3].remove()
+      text.textContent = "Game over"
+      
+      button.setAttribute("class", "btn btn-dark p-3 m-2")
+        //enter in the function that I use to create 
+      button.addEventListener("click", )
+        let newButtons = document.getElementById("answerContainer")
+        button.textContent = "Submit Score"
+        newButtons.appendChild(button)
+
+    }
+
+
+}, 500);
+  
+}
+
+

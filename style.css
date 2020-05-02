@@ -9,3 +9,8 @@
 #question {
     text-align: center;
 }
+
+.red {
+    color: red;
+    font-size: large;
+}
