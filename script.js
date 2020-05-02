@@ -77,7 +77,9 @@ function updateUI() {
     
 
 }
+
 button.addEventListener("click", startGame)
+
 function clicked(ev) {
     if(ev.target.textContent === questions[questionIndex].answer){
         result.innerHTML = "Correct"
@@ -108,11 +110,12 @@ function clock(){
       
       button.setAttribute("class", "btn btn-dark p-3 m-2")
         //enter in the function that I use to create 
-      button.addEventListener("click", clicked )
+      button.addEventListener("click", saveStats)
+      button.removeEventListener("click", startGame)
         let newButtons = document.getElementById("answerContainer")
         let newInput =document.createElement("input")
         newInput.setAttribute("placeholder", "Initials go here")
-        // newInput.setAttribute("class","bg-secondary" )
+        newInput.setAttribute("id", "storage")
         button.textContent = "Submit Score"
         newButtons.appendChild(newInput)
         newButtons.appendChild(button)
@@ -124,3 +127,22 @@ function clock(){
   
 }
 
+function checkLocalStorage(){
+
+}
+function saveStats(){
+  let initials = document.querySelector("#storage").value  
+  let highScore = correctAnswers
+  let taco = localStorage.getItem("highScore")
+  if (!taco){
+    taco = []
+  }
+  taco.push({
+     highScore: highScore, 
+     initials: initials,
+
+  })
+  
+  // localStorageInitialize = document.querySelector("#storage").textContent
+
+}
