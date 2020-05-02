@@ -44,7 +44,7 @@ let finish = document.getElementById("result")
 let currentScoreDisplay = document.getElementById("taco") 
 let time = document.getElementById("main")
 let questionIndex = 0
-let secondsLeft = 5
+let secondsLeft = 20
 let answerButtons = []
 let correctAnswers = 0
 
@@ -116,6 +116,7 @@ function clock(){
         let newInput =document.createElement("input")
         newInput.setAttribute("placeholder", "Initials go here")
         newInput.setAttribute("id", "storage")
+        newInput.setAttribute("maxlength", "2")
         button.textContent = "Submit Score"
         newButtons.appendChild(newInput)
         newButtons.appendChild(button)
@@ -123,7 +124,7 @@ function clock(){
     }
 
 
-}, 500);
+}, 1000);
   
 }
 
@@ -137,12 +138,40 @@ function saveStats(){
   if (!taco){
     taco = []
   }
+  else {
+    taco = JSON.parse(taco)
+  }
+
+
   taco.push({
      highScore: highScore, 
      initials: initials,
 
   })
+  taco = JSON.stringify(taco)
+  localStorage.setItem("highScore", taco)
+  location.reload()
   
   // localStorageInitialize = document.querySelector("#storage").textContent
 
 }
+
+function updateModal(){
+  let scoresTarget = document.querySelector(".modal-body")
+  let taco = localStorage.getItem("highScore")
+  
+  taco = JSON.parse(taco)
+
+  taco.forEach(function(ingredient){
+    let burrito =  ingredient.highScore + " " + ingredient.initials
+    let salad = document.createElement("div")
+    salad.textContent = burrito
+    scoresTarget.appendChild(salad)
+    
+    
+  })
+}
+
+
+
+updateModal()
