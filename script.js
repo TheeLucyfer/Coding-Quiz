@@ -41,28 +41,26 @@ var questions = [
 let button = document.getElementById("selector")
 let text = document.getElementById("question")
 let finish = document.getElementById("result")
+let currentScoreDisplay = document.getElementById("taco") 
+let time = document.getElementById("main")
 let questionIndex = 0
 let secondsLeft = 5
-let time = document.getElementById("main")
 let answerButtons = []
-
+let correctAnswers = 0
 
 let startGame = function(){
     clock()
     button.remove()
-    answerButtons.push(document.createElement("button"))
-    answerButtons.push(document.createElement("button"))
-    answerButtons.push(document.createElement("button"))
-    answerButtons.push(document.createElement("button"))
 
-    
-    
-    for (let index = 0; index < answerButtons.length; index++) {
-        const element = answerButtons[index];
-        element.setAttribute("class", "btn btn-dark p-3 m-2")
-        element.addEventListener("click", clicked)
-        let newButtons = document.getElementById("answerContainer")
-        newButtons.appendChild(element)
+    for (let index = 0; index < 4; index++) {
+      let btn = document.createElement("button")
+      answerButtons.push(btn);
+
+      btn.setAttribute("class", "btn btn-dark p-3 m-2")
+      btn.addEventListener("click", clicked)
+
+      let newButtons = document.getElementById("answerContainer")
+      newButtons.appendChild(btn)
     } 
 
     updateUI()
@@ -75,14 +73,16 @@ function updateUI() {
     answerButtons[1].textContent = question.choices[1]
     answerButtons[2].textContent = question.choices[2]
     answerButtons[3].textContent = question.choices[3]
+    currentScoreDisplay.textContent = `Current Score: ${correctAnswers}`
+    
+
 }
-
-
 button.addEventListener("click", startGame)
 function clicked(ev) {
     if(ev.target.textContent === questions[questionIndex].answer){
         result.innerHTML = "Correct"
-        
+        correctAnswers++;
+        console.log(correctAnswers)
     }
     else{
         result.innerHTML = "Wrong"
@@ -103,13 +103,18 @@ function clock(){
       answerButtons[1].remove()
       answerButtons[2].remove()
       answerButtons[3].remove()
+      result.remove()
       text.textContent = "Game over"
       
       button.setAttribute("class", "btn btn-dark p-3 m-2")
         //enter in the function that I use to create 
-      button.addEventListener("click", )
+      button.addEventListener("click", clicked )
         let newButtons = document.getElementById("answerContainer")
+        let newInput =document.createElement("input")
+        newInput.setAttribute("placeholder", "Initials go here")
+        // newInput.setAttribute("class","bg-secondary" )
         button.textContent = "Submit Score"
+        newButtons.appendChild(newInput)
         newButtons.appendChild(button)
 
     }
@@ -118,5 +123,4 @@ function clock(){
 }, 500);
   
 }
-
 
